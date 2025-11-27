@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysAcopio - Presentación Profesional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 60px 80px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Slide de portada */
+        .slide-cover {
+            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #1565c0 100%);
+            align-items: center;
+            text-align: center;
+            justify-content: space-between;
+            padding: 40px 80px;
+        }
+
+        .slide-cover .logo-box {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+        }
+
+        .slide-cover h1 {
+            font-size: 72px;
+            color: #FFD700;
+            font-weight: 700;
+            margin: 30px 0;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide-cover .subtitle {
+            font-size: 36px;
+            color: #ffffff;
+            margin-bottom: 40px;
+        }
+
+        .academic-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .academic-info p {
+            color: #ffffff;
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        .team-box {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .team-box h3 {
+            color: #FFD700;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .team-box p {
+            color: #ffffff;
+            font-size: 20px;
+            margin: 8px 0;
+        }
+
+        /* Estilos generales */
+        h2 {
+            font-size: 52px;
+            color: #FFD700;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h3 {
+            font-size: 34px;
+            color: #ffffff;
+            margin: 25px 0 15px 0;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+
+        ul {
+            list-style: none;
+            color: #ffffff;
+        }
+
+        li {
+            font-size: 24px;
+            margin: 15px 0;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+            font-size: 28px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .card h4 {
+            color: #FFD700;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #ffffff;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #FF6B35 0%, #f7931e 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 25px 0;
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.5);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .highlight-box h3 {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .highlight-box p {
+            color: #ffffff;
+            font-size: 24px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .code-box {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 3px solid #FFD700;
+        }
+
+        .code-box code {
+            color: #4CAF50;
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            line-height: 2;
+        }
+
+        .screenshot {
+            margin: 30px 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .screenshot p {
+            color: #FFD700;
+            font-size: 22px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 215, 0, 0.3);
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+            background: #FFD700;
+            color: #1a237e;
+            transform: scale(1.05);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            color: #FFD700;
+            font-size: 22px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .icon-large {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Portada -->
+        <div class="slide slide-cover active">
+            <div class="logo-box">
+                <div style="font-size: 48px; font-weight: bold; color: #1565c0;">UPeU</div>
+                <div style="font-size: 16px; color: #666;">Universidad Peruana Unión</div>
+            </div>
+
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="icon-large">💎</div>
+                <h1>SysAcopio</h1>
+                <div class="subtitle">Sistema de Acopio de Minerales</div>
+
+                <div class="academic-info">
+                    <p><strong>Curso:</strong> Programación Orientada a Objetos</p>
+                    <p><strong>Ciclo:</strong> Segundo Ciclo</p>
+                    <p><strong>Docente:</strong> David Mamani Pari</p>
+                </div>
+            </div>
+
+            <div class="team-box">
+                <h3>👥 Equipo de Desarrollo</h3>
+                <p>• Ccalla Colquehuanca, Brandon Andree</p>
+                <p>• Faijo Calisaya, Helio Paul</p>
+                <p>• Pradoc Chavez, Yojaida Kassandra</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problemática -->
+        <div class="slide">
+            <h2>🎯 Problemática</h2>
+            <div class="content">
+                <h3>Situación Actual</h3>
+                <p style="font-size: 26px; color: #ffffff; margin-bottom: 30px; line-height: 1.8;">
+                    Las empresas de acopio de minerales tradicionalmente usan <strong>hojas de cálculo Excel</strong>
+                    para registrar sus compras y calcular los pagos a proveedores.
+                </p>
+
+                <h3>⚠️ Problemas Identificados</h3>
+                <ul style="font-size: 24px;">
+                    <li><strong>Cálculos manuales propensos a errores</strong> - Fórmulas complejas de valuación</li>
+                    <li><strong>Falta de trazabilidad</strong> - Difícil auditar cambios y modificaciones</li>
+                    <li><strong>Sin control de proveedores</strong> - Datos dispersos sin centralización</li>
+                    <li><strong>Duplicación de información</strong> - Múltiples archivos Excel independientes</li>
+                    <li><strong>Comprobantes no estandarizados</strong> - Formatos inconsistentes</li>
+                    <li><strong>Sin historial de operaciones</strong> - Imposible rastrear quién hizo qué</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: ¿De qué va esto? (CASUAL) -->
+        <div class="slide">
+            <h2>💡 ¿De qué va realmente este proyecto?</h2>
+            <div class="content">
+                <div
+                    style="background: rgba(255,255,255,0.15); padding: 35px; border-radius: 20px; margin-bottom: 30px;">
+                    <p style="font-size: 30px; color: #ffffff; line-height: 2; text-align: left;">
+                        En palabras simples: <strong style="color: #FFD700;">tomamos un Excel complicado que usa una
+                            empresa de oro</strong>
+                        y lo convertimos en un <strong style="color: #90caf9;">sistema automático que calcula todo
+                            solito</strong>. 🎯
+                    </p>
+                </div>
+
+                <div class="grid-2" style="margin-top: 30px;">
+                    <div class="card"
+                        style="background: linear-gradient(135deg, rgba(76,175,80,0.3), rgba(76,175,80,0.1));">
+                        <h4>🔥 La Magia</h4>
+                        <p>Metemos peso, ley del oro, precio... y ¡PAM! El sistema calcula al instante cuánto pagar. Sin
+                            errores, sin calculadora.</p>
+                    </div>
+                    <div class="card"
+                        style="background: linear-gradient(135deg, rgba(33,150,243,0.3), rgba(33,150,243,0.1));">
+                        <h4>📊 Todo Guardado</h4>
+                        <p>Cada compra queda registrada en la base de datos. Puedes ver qué pasó, cuándo y quién lo
+                            hizo. Trazabilidad total.</p>
+                    </div>
+                    <div class="card"
+                        style="background: linear-gradient(135deg, rgba(255,152,0,0.3), rgba(255,152,0,0.1));">
+                        <h4>🖨️ Comprobantes Pro</h4>
+                        <p>Genera vouchers automáticos como los de un banco. Se ve súper profesional y se puede imprimir
+                            o exportar a PDF.</p>
+                    </div>
+                    <div class="card"
+                        style="background: linear-gradient(135deg, rgba(156,39,176,0.3), rgba(156,39,176,0.1));">
+                        <h4>⚡ Tiempo Real</h4>
+                        <p>Mientras escribes los datos, el precio se va calculando. No hay que darle a ningún botón de
+                            "calcular".</p>
+                    </div>
+                </div>
+
+                <div
+                    style="background: linear-gradient(135deg, #1976d2, #1565c0); padding: 35px; border-radius: 20px; margin-top: 40px; box-shadow: 0 10px 40px rgba(25, 118, 210, 0.5);">
+                    <h3 style="font-size: 34px; text-align: center;">🎓 El Toque Académico</h3>
+                    <p style="font-size: 23px; line-height: 1.8; color: #ffffff; text-align: center;">
+                        No solo resolvemos un problema real, sino que usamos <strong>POO puro y duro</strong>:
+                        clases bien diseñadas, herencia con Spring, polimorfismo en los repositorios, encapsulamiento en
+                        los cálculos.
+                        Todo conectado con <strong>Spring Boot</strong> que maneja la inyección de dependencias
+                        automáticamente.
+                        Es un proyecto que de verdad <strong>podrías usar en una empresa</strong>. 💪
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: El Núcleo (Motor de Cálculo) -->
+        <div class="slide">
+            <h2>⚡ El Núcleo: Motor de Cálculo Automático</h2>
+            <div class="content">
+                <div class="highlight-box">
+                    <h3>🎯 CORAZÓN DEL PROYECTO</h3>
+                    <p><strong>Sistema de cálculo automático</strong> que replica la lógica compleja de valuación de
+                        minerales que normalmente se realiza en Excel, pero de forma automática, precisa y con
+                        persistencia en base de datos.</p>
+                </div>
+
+                <h3>📐 Fórmula de Valuación Implementada</h3>
+                <div class="code-box">
+                    <code>PrecioGramoDólares = ((PrecioOnzaBase × (Ley ÷ 100)) × (1 - Deducción)) ÷ 31.1035</code>
+                    <code>PrecioGramoSoles = PrecioGramoDólares × TipoCambio</code>
+                    <code>TotalAPagar = PrecioGramoSoles × Peso</code>
+                </div>
+
+                <p style="color: #90caf9; font-size: 23px; line-height: 1.8; margin-top: 25px; text-align: center;">
+                    Esta fórmula considera: <strong>ley del material</strong> (pureza), <strong>deducciones</strong> por
+                    mermas,
+                    conversión de <strong>onzas troy a gramos</strong>, y <strong>tipo de cambio</strong> USD a Soles.
+                    El sistema la ejecuta automáticamente en cada transacción.
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Arquitectura -->
+        <div class="slide">
+            <h2>⚙️ Arquitectura del Sistema</h2>
+            <div class="content">
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>🍃 Backend</h4>
+                        <p><strong>Spring Boot 3.2.5</strong></p>
+                        <p>Spring Data JPA</p>
+                        <p>Hibernate ORM</p>
+                        <p>Arquitectura por capas</p>
+                    </div>
+                    <div class="card">
+                        <h4>🖥️ Frontend</h4>
+                        <p><strong>JavaFX 17</strong></p>
+                        <p>Interfaz de escritorio</p>
+                        <p>FXML para diseño UI</p>
+                        <p>Cálculo en tiempo real</p>
+                    </div>
+                    <div class="card">
+                        <h4>🗄️ Base de Datos</h4>
+                        <p><strong>SQLite</strong></p>
+                        <p>Base de datos embebida</p>
+                        <p>Sin configuración de servidor</p>
+                        <p>Portabilidad total</p>
+                    </div>
+                    <div class="card">
+                        <h4>📄 Reportes</h4>
+                        <p><strong>JasperReports 6.20.6</strong></p>
+                        <p>Generación de comprobantes</p>
+                        <p>Exportación a PDF/Excel</p>
+                        <p>Impresión directa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Modelo de Datos POO -->
+        <div class="slide">
+            <h2>🗃️ Modelo de Datos - Diseño POO</h2>
+            <div class="content">
+                <div class="grid-3">
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 50px; margin-bottom: 10px;">👤</div>
+                        <h4>Proveedor</h4>
+                        <p>DNI/RUC, nombres, contacto, dirección</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 50px; margin-bottom: 10px;">💎</div>
+                        <h4>Material</h4>
+                        <p>Oro, Plata, Mate con códigos y unidades</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 50px; margin-bottom: 10px;">📦</div>
+                        <h4>Acopio</h4>
+                        <p>Transacción principal con número único</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 50px; margin-bottom: 10px;">📋</div>
+                        <h4>AcopioDetalle</h4>
+                        <p>⭐ Contiene el método calcular()</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 50px; margin-bottom: 10px;">👨‍💼</div>
+                        <h4>Usuario</h4>
+                        <p>Control de acceso y auditoría</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 50px; margin-bottom: 10px;">📊</div>
+                        <h4>Historial</h4>
+                        <p>Trazabilidad de movimientos</p>
+                    </div>
+                </div>
+
+                <p style="color: #FFD700; font-size: 24px; margin-top: 30px; text-align: center; font-weight: bold;">
+                    🔗 Relaciones JPA: Acopio → Proveedor (ManyToOne) | Acopio → AcopioDetalle (OneToMany) |
+                    AcopioDetalle → Material (ManyToOne)
+                </p>
+
+                <p style="color: #FFD700; font-size: 23px; margin-top: 20px; text-align: center;">
+                    <strong>Encapsulamiento:</strong> La lógica de cálculo está encapsulada en el método calcular() de
+                    AcopioDetalle
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Funcionalidades Principales -->
+        <div class="slide">
+            <h2>✨ Funcionalidades Principales</h2>
+            <div class="content">
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📝 Gestión de Acopios</h4>
+                        <p>Registro con múltiples materiales, cálculo automático y numeración correlativa
+                            (ACO-2025-XXXX)</p>
+                    </div>
+                    <div class="card">
+                        <h4>👥 Gestión de Proveedores</h4>
+                        <p>CRUD completo, consulta automática de DNI/RUC via API externa</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚡ Cálculos en Tiempo Real</h4>
+                        <p>Preview inmediato mientras el usuario ingresa datos, aplicando fórmulas complejas</p>
+                    </div>
+                    <div class="card">
+                        <h4>📄 Comprobantes Profesionales</h4>
+                        <p>Generación automática con JasperReports, exportación PDF/Excel, impresión directa</p>
+                    </div>
+                    <div class="card">
+                        <h4>📊 Historial y Auditoría</h4>
+                        <p>Trazabilidad completa de todas las operaciones del sistema</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔐 Seguridad y Usuarios</h4>
+                        <p>Sistema de autenticación, control de acceso y sesiones</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Principios de POO -->
+        <div class="slide">
+            <h2>🎓 Principios de POO Aplicados</h2>
+            <div class="content">
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>📦 Encapsulamiento</h4>
+                        <p>Lógica de cálculo encapsulada en métodos de las entidades. Atributos privados con
+                            getters/setters vía Lombok</p>
+                    </div>
+                    <div class="card">
+                        <h4>🧬 Herencia</h4>
+                        <p>Uso de clases base de Spring Boot y JavaFX. Anotaciones JPA heredando comportamiento de
+                            EntityListeners</p>
+                    </div>
+                    <div class="card">
+                        <h4>🔄 Polimorfismo</h4>
+                        <p>Interfaces de Spring Data JPA permiten implementaciones polimórficas de repositorios</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎯 Abstracción</h4>
+                        <p>Capas de servicio abstraen la complejidad del acceso a datos y lógica de negocio</p>
+                    </div>
+                    <div class="card">
+                        <h4>💉 Inyección de Dependencias</h4>
+                        <p>Spring IoC gestiona la creación y ciclo de vida de objetos automáticamente</p>
+                    </div>
+                    <div class="card">
+                        <h4>🏗️ Separación de Responsabilidades</h4>
+                        <p>Arquitectura en capas: Model, Repository, Service, Controller, View</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Stack Tecnológico -->
+        <div class="slide">
+            <h2>🛠️ Stack Tecnológico Completo</h2>
+            <div class="content">
+                <h3>Tecnologías y Herramientas</h3>
+                <div class="grid-2" style="margin-top: 30px;">
+                    <ul style="font-size: 22px;">
+                        <li><strong>Java 17</strong> - Plataforma de desarrollo</li>
+                        <li><strong>Spring Boot 3.2.5</strong> - Framework backend</li>
+                        <li><strong>JavaFX 17</strong> - Framework UI</li>
+                        <li><strong>Maven</strong> - Gestión de dependencias</li>
+                        <li><strong>SQLite JDBC</strong> - Base de datos embebida</li>
+                        <li><strong>Hibernate + JPA</strong> - ORM y persistencia</li>
+                    </ul>
+                    <ul style="font-size: 22px;">
+                        <li><strong>Lombok</strong> - Reducción de boilerplate</li>
+                        <li><strong>JasperReports 6.20.6</strong> - Generación de reportes</li>
+                        <li><strong>Apache POI 5.2.3</strong> - Exportación Excel</li>
+                        <li><strong>Apache HttpClient 5</strong> - Consumo de APIs</li>
+                        <li><strong>Jackson</strong> - Procesamiento JSON</li>
+                        <li><strong>Spring Validation</strong> - Validaciones</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Equipo Trabajando -->
+        <div class="slide">
+            <h2>👨‍💻 El Equipo en Acción</h2>
+            <div class="content"
+                style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <p style="color: #FFD700; font-size: 28px; margin-bottom: 30px; text-align: center;">
+                    <strong>Trabajo en equipo y desarrollo colaborativo</strong>
+                </p>
+
+                <div style="background: rgba(0,0,0,0.3); padding: 30px; border-radius: 20px; max-width: 900px;">
+                    <img src="equipo_trabajando.png" alt="Equipo trabajando"
+                        style="max-width: 100%; max-height: 500px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+                </div>
+
+                <p style="color: #90caf9; font-size: 26px; margin-top: 25px; font-style: italic; text-align: center;">
+                    💪 Así se hace un proyecto de calidad profesional 🚀
+                </p>
+
+                <div
+                    style="background: rgba(255, 215, 0, 0.1); padding: 25px; border-radius: 15px; margin-top: 30px; border: 2px solid rgba(255, 215, 0, 0.3);">
+                    <p style="color: #ffffff; font-size: 22px; text-align: center; line-height: 1.8;">
+                        <strong>Reuniones constantes</strong>, <strong>pair programming</strong>, y <strong>mucha
+                            colaboración</strong>
+                        para crear un sistema robusto y funcional que cumple con todos los requisitos académicos y
+                        profesionales.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Ventajas del Sistema -->
+        <div class="slide">
+            <h2>🎯 Ventajas del Sistema</h2>
+            <div class="content">
+                <ul style="columns: 1; font-size: 25px;">
+                    <li><strong>Automatización total</strong> - Elimina cálculos manuales y errores humanos</li>
+                    <li><strong>Precisión garantizada</strong> - BigDecimal asegura exactitud financiera</li>
+                    <li><strong>Trazabilidad completa</strong> - Auditoría de todas las operaciones</li>
+                    <li><strong>Sin instalación de servidor</strong> - SQLite embebido, despliegue inmediato</li>
+                    <li><strong>Portabilidad total</strong> - Funciona en Windows, Linux y macOS</li>
+                    <li><strong>Interfaz nativa</strong> - Mejor rendimiento que aplicaciones web</li>
+                    <li><strong>Offline-first</strong> - Funciona sin conexión a internet</li>
+                    <li><strong>Comprobantes estandarizados</strong> - Formato profesional uniforme</li>
+                    <li><strong>Integración API</strong> - Consulta automática de DNI/RUC</li>
+                    <li><strong>Código mantenible</strong> - Arquitectura limpia MVC</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Conclusiones -->
+        <div class="slide">
+            <h2>✅ Conclusiones</h2>
+            <div class="content">
+                <ul style="font-size: 28px; line-height: 2.2;">
+                    <li><strong>Solución real a problema real</strong> - Automatiza valuación de minerales</li>
+                    <li><strong>Aplicación completa de POO</strong> - Encapsulamiento, abstracción, polimorfismo</li>
+                    <li><strong>Arquitectura empresarial</strong> - Spring Boot + JPA siguiendo mejores prácticas</li>
+                    <li><strong>Motor de cálculo robusto</strong> - Fórmulas complejas con precisión financiera</li>
+                    <li><strong>Interfaz profesional</strong> - JavaFX con cálculos en tiempo real</li>
+                    <li><strong>Trazabilidad garantizada</strong> - Historial de auditoría completo</li>
+                    <li><strong>Código escalable</strong> - Fácil agregar nuevos materiales o funcionalidades</li>
+                    <li><strong>Proyecto aplicable</strong> - Puede usarse en empresas mineras reales</li>
+                </ul>
+
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <p style="font-size: 28px;">
+                        <strong>🎯 Valor Principal:</strong> Transformación de procesos manuales en Excel a un sistema
+                        automatizado, trazable y libre de errores usando principios sólidos de POO.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Gracias -->
+        <div class="slide slide-cover">
+            <div class="logo-box">
+                <div style="font-size: 48px; font-weight: bold; color: #1565c0;">UPeU</div>
+                <div style="font-size: 16px; color: #666;">Universidad Peruana Unión</div>
+            </div>
+
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="icon-large">💎</div>
+                <h1>¡Gracias!</h1>
+                <div class="subtitle">SysAcopio - Sistema de Acopio de Minerales</div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 35px; border-radius: 20px; margin-top: 35px;">
+                    <p style="color: #FFD700; font-size: 26px; margin-bottom: 15px;">
+                        <strong>Programación Orientada a Objetos</strong>
+                    </p>
+                    <p style="color: #ffffff; font-size: 22px;">
+                        Universidad Peruana Unión · Segundo Ciclo
+                    </p>
+                </div>
+            </div>
+
+            <div class="team-box">
+                <p style="font-size: 22px; color: #90caf9; margin-bottom: 15px;">
+                    💻 Spring Boot + JavaFX + JPA/Hibernate
+                </p>
+                <p style="font-size: 20px; color: #ffffff;">
+                    Brandon Ccalla · Helio Faijo · Yojaida Pradoc
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Anterior</button>
+        <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+    </div>
+
+    <!-- Contador de slides -->
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">13</span>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            } else if (e.key === 'Home') {
+                currentSlide = 0;
+                showSlide(currentSlide);
+            } else if (e.key === 'End') {
+                currentSlide = totalSlides - 1;
+                showSlide(currentSlide);
+            }
+        });
+
+        // Inicializar
+        showSlide(currentSlide);
+    </script>
+</body>
+
+</html>

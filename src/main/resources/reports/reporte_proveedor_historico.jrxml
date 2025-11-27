@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="reporte_proveedor_historico" pageWidth="595" pageHeight="842"
+              columnWidth="535" leftMargin="30" rightMargin="30"
+              topMargin="20" bottomMargin="20">
+
+    <!-- PARÁMETROS -->
+    <parameter name="proveedorNombre" class="java.lang.String"/>
+    <parameter name="proveedorDocumento" class="java.lang.String"/>
+    <parameter name="proveedorDireccion" class="java.lang.String"/>
+    <parameter name="totalAcopios" class="java.lang.Integer"/>
+    <parameter name="totalPagado" class="java.math.BigDecimal"/>
+
+    <!-- CAMPOS (de cada acopio) -->
+    <field name="numeroAcopio" class="java.lang.String"/>
+    <field name="fechaAcopio" class="java.time.LocalDate"/>
+    <field name="totalPagar" class="java.math.BigDecimal"/>
+    <field name="estado" class="java.lang.String"/>
+    <field name="observaciones" class="java.lang.String"/>
+
+    <!-- TÍTULO DEL REPORTE -->
+    <title>
+        <band height="170">
+            <!-- Logo FAJTO -->
+            <image scaleImage="RetainShape" hAlign="Center">
+                <reportElement x="10" y="0" width="100" height="50"/>
+                <imageExpression><![CDATA["images/logo_fajto.png"]]></imageExpression>
+            </image>
+
+            <!-- Fondo del título -->
+            <rectangle>
+                <reportElement x="0" y="0" width="535" height="70" backcolor="#2C3E50"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+
+            <!-- Título principal -->
+            <staticText>
+                <reportElement x="120" y="10" width="405" height="25" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[HISTORIAL DE ACOPIOS POR PROVEEDOR]]></text>
+            </staticText>
+
+            <!-- Subtítulo -->
+            <staticText>
+                <reportElement x="120" y="35" width="405" height="15" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[Registro Completo de Transacciones]]></text>
+            </staticText>
+
+            <!-- Datos del proveedor -->
+            <rectangle>
+                <reportElement x="0" y="80" width="535" height="80" backcolor="#ECF0F1"/>
+                <graphicElement><pen lineWidth="1" lineColor="#BDC3C7"/></graphicElement>
+            </rectangle>
+
+            <staticText>
+                <reportElement x="10" y="90" width="80" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[PROVEEDOR:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="90" y="90" width="435" height="15"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$P{proveedorNombre}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="10" y="105" width="80" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[DOCUMENTO:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="90" y="105" width="200" height="15"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$P{proveedorDocumento}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="10" y="120" width="80" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[DIRECCIÓN:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="90" y="120" width="435" height="15"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$P{proveedorDireccion}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="10" y="140" width="100" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[TOTAL ACOPIOS:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="110" y="140" width="80" height="15"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$P{totalAcopios}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="300" y="140" width="120" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[TOTAL PAGADO:]]></text>
+            </staticText>
+            <textField pattern="'S/.' #,##0.00">
+                <reportElement x="420" y="140" width="105" height="15"/>
+                <textElement textAlignment="Right"><font size="9" isBold="true" isUnderline="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{totalPagado}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <!-- CABECERA DE COLUMNAS -->
+    <columnHeader>
+        <band height="25">
+            <rectangle>
+                <reportElement x="0" y="5" width="535" height="18" backcolor="#34495E"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+
+            <staticText>
+                <reportElement x="5" y="7" width="90" height="14" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Número Acopio]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="100" y="7" width="70" height="14" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Fecha]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="175" y="7" width="220" height="14" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Observaciones]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="400" y="7" width="55" height="14" forecolor="#FFFFFF"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Estado]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="460" y="7" width="70" height="14" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Total (S/.)]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <!-- DETALLE (cada acopio) -->
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="5" y="2" width="90" height="14"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{numeroAcopio}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="dd/MM/yyyy">
+                <reportElement x="100" y="2" width="70" height="14"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{fechaAcopio}]]></textFieldExpression>
+            </textField>
+
+            <textField isBlankWhenNull="true">
+                <reportElement x="175" y="2" width="220" height="14"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{observaciones}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="400" y="2" width="55" height="14"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="'S/.' #,##0.00">
+                <reportElement x="460" y="2" width="70" height="14"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{totalPagar}]]></textFieldExpression>
+            </textField>
+
+            <line>
+                <reportElement x="0" y="18" width="535" height="1"/>
+                <graphicElement><pen lineStyle="Dotted"/></graphicElement>
+            </line>
+        </band>
+    </detail>
+
+    <!-- PIE DE PÁGINA -->
+    <summary>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="10" width="535" height="15"/>
+                <textElement textAlignment="Center">
+                    <font size="8" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[*** Fin del Reporte ***]]></text>
+            </staticText>
+        </band>
+    </summary>
+
+</jasperReport>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pe.com.acopio.controller.ProveedorController"
+      spacing="15" style="-fx-background-color: white;">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Título -->
+    <Label text="GESTIÓN DE PROVEEDORES" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+        <font>
+            <Font size="20"/>
+        </font>
+    </Label>
+
+    <Separator/>
+
+    <!-- FORMULARIO DE PROVEEDOR -->
+    <TitledPane text="Datos del Proveedor" collapsible="false">
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="130" prefWidth="130"/>
+                    <ColumnConstraints minWidth="220" prefWidth="220"/>
+                    <ColumnConstraints minWidth="130" prefWidth="130"/>
+                    <ColumnConstraints minWidth="220" prefWidth="220"/>
+                </columnConstraints>
+
+                <!-- Fila 1 -->
+                <Label text="Tipo Documento:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <ComboBox fx:id="cmbTipoDocumento" prefWidth="220"
+                          GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Nro. Documento:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <HBox spacing="5" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                    <TextField fx:id="txtNumeroDocumento" promptText="Ej: 12345678"
+                               HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="btnConsultarDNI" text="Consultar" onAction="#handleConsultarDNI"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                </HBox>
+
+                <!-- Fila 2 -->
+                <Label text="Nombres:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtNombres" promptText="Nombres completos"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Apellidos:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtApellidos" promptText="Apellidos completos"
+                           GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                <!-- Fila 3 -->
+                <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtDireccion" promptText="Dirección completa"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3"/>
+
+                <!-- Fila 4 -->
+                <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtTelefono" promptText="Ej: 987654321"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="Email:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtEmail" promptText="email@ejemplo.com"
+                           GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+
+                <!-- Fila 5 -->
+                <Label text="Ciudad:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextField fx:id="txtCiudad" promptText="Ej: Puno"
+                           GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            </GridPane>
+
+            <VBox spacing="5">
+                <Label text="Observaciones:"/>
+                <TextArea fx:id="txtObservaciones" prefHeight="60" wrapText="true"/>
+            </VBox>
+
+            <!-- Botones de acción -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Nuevo" onAction="#handleNuevo" prefWidth="120"
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white;">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+                <Button text="Guardar" onAction="#handleGuardar" prefWidth="120"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+                <Button text="Eliminar" onAction="#handleEliminar" prefWidth="120"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white;">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </TitledPane>
+
+    <!-- LISTA DE PROVEEDORES -->
+    <TitledPane text="Lista de Proveedores" collapsible="false">
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <!-- Búsqueda -->
+            <HBox spacing="10">
+                <TextField fx:id="txtBuscar" promptText="Buscar por nombre o documento..."
+                           HBox.hgrow="ALWAYS"/>
+                <Button text="Buscar" onAction="#handleBuscar"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+            </HBox>
+
+            <!-- Tabla -->
+            <TableView fx:id="tblProveedores" prefHeight="300">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colTipoDoc" text="Tipo Doc" prefWidth="80"/>
+                    <TableColumn fx:id="colNumeroDoc" text="Nro. Documento" prefWidth="120"/>
+                    <TableColumn fx:id="colNombres" text="Nombre Completo" prefWidth="250"/>
+                    <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="100"/>
+                    <TableColumn fx:id="colCiudad" text="Ciudad" prefWidth="120"/>
+                    <TableColumn fx:id="colActivo" text="Activo" prefWidth="60"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </TitledPane>
+
+</VBox>

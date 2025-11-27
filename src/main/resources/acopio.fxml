@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pe.com.acopio.controller.AcopioController"
+      spacing="15" style="-fx-background-color: white;">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Título -->
+    <Label text="REGISTRO DE ACOPIO" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+        <font>
+            <Font size="20"/>
+        </font>
+    </Label>
+
+    <Separator/>
+
+    <!-- DATOS GENERALES -->
+    <TitledPane text="Datos Generales" collapsible="false">
+        <GridPane hgap="15" vgap="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <columnConstraints>
+                <ColumnConstraints minWidth="120" prefWidth="120"/>
+                <ColumnConstraints minWidth="250" prefWidth="250"/>
+                <ColumnConstraints minWidth="120" prefWidth="120"/>
+                <ColumnConstraints minWidth="200" prefWidth="200"/>
+            </columnConstraints>
+
+            <Label text="Proveedor:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="cmbProveedor" prefWidth="250"
+                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Fecha:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <DatePicker fx:id="dpFecha" prefWidth="200"
+                        GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+        </GridPane>
+    </TitledPane>
+
+    <!-- DETALLE DEL ITEM (Campos del Excel) -->
+    <TitledPane text="Detalle del Item - Fórmula de Cálculo" collapsible="false">
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" prefWidth="120"/>
+                    <ColumnConstraints minWidth="200" prefWidth="200"/>
+                    <ColumnConstraints minWidth="120" prefWidth="120"/>
+                    <ColumnConstraints minWidth="200" prefWidth="200"/>
+                </columnConstraints>
+
+                <!-- Fila 1 -->
+                <Label text="Material:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <ComboBox fx:id="cmbMaterial" prefWidth="200"
+                          GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Peso (gramos):" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtPeso" promptText="0.00"
+                           GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <!-- Fila 2 -->
+                <Label text="Ley (%):" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtLey" promptText="95.5"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Deducción (%):" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtDeduccion" promptText="0.10"
+                           GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                <!-- Fila 3 -->
+                <Label text="Precio Onza ($):" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtPrecioOnza" promptText="1800.00"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Tipo Cambio (S/.):" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtTipoCambio" promptText="3.75"
+                           GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            </GridPane>
+
+            <Separator/>
+
+            <!-- RESULTADOS CALCULADOS -->
+            <Label text="Resultados del Cálculo:" style="-fx-font-weight: bold;"/>
+
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="150" prefWidth="150"/>
+                    <ColumnConstraints minWidth="150" prefWidth="150"/>
+                    <ColumnConstraints minWidth="150" prefWidth="150"/>
+                    <ColumnConstraints minWidth="150" prefWidth="150"/>
+                </columnConstraints>
+
+                <Label text="Precio/g ($):" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtPrecioGramoDolares" editable="false"
+                           style="-fx-background-color: #ecf0f1;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Precio/g (S/.):" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtPrecioGramoSoles" editable="false"
+                           style="-fx-background-color: #ecf0f1;"
+                           GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <Label text="Total Item (S/.):" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                       style="-fx-font-weight: bold;"/>
+                <TextField fx:id="txtTotalItem" editable="false"
+                           style="-fx-background-color: #e8f5e9; -fx-font-weight: bold;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            </GridPane>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Agregar Item" onAction="#handleAgregarDetalle"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white;">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </TitledPane>
+
+    <!-- TABLA DE ITEMS -->
+    <TitledPane text="Items del Acopio" collapsible="false">
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <TableView fx:id="tblDetalles" prefHeight="250">
+                <columns>
+                    <TableColumn fx:id="colItem" text="#" prefWidth="40"/>
+                    <TableColumn fx:id="colMaterial" text="Material" prefWidth="100"/>
+                    <TableColumn fx:id="colPeso" text="Peso (g)" prefWidth="80"/>
+                    <TableColumn fx:id="colLey" text="Ley (%)" prefWidth="70"/>
+                    <TableColumn fx:id="colDeduccion" text="Deduc." prefWidth="70"/>
+                    <TableColumn fx:id="colPrecioOnza" text="P. Onza ($)" prefWidth="90"/>
+                    <TableColumn fx:id="colTipoCambio" text="T.C. (S/.)" prefWidth="80"/>
+                    <TableColumn fx:id="colPrecioGramo" text="P/g (S/.)" prefWidth="90"/>
+                    <TableColumn fx:id="colTotal" text="Total (S/.)" prefWidth="100"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="10">
+                <Button text="Eliminar Item" onAction="#handleEliminarDetalle"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </TitledPane>
+
+    <!-- OBSERVACIONES Y TOTAL -->
+    <HBox spacing="20">
+        <VBox spacing="5" HBox.hgrow="ALWAYS">
+            <Label text="Observaciones:"/>
+            <TextArea fx:id="txtObservaciones" prefHeight="80" wrapText="true"/>
+        </VBox>
+
+        <VBox spacing="10" alignment="TOP_RIGHT">
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Label text="TOTAL A PAGAR (S/.): " style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                <Label fx:id="lblTotalGeneral" text="0.00"
+                       style="-fx-font-weight: bold; -fx-font-size: 20; -fx-text-fill: #27ae60;"/>
+            </HBox>
+        </VBox>
+    </HBox>
+
+    <!-- BOTONES DE ACCIÓN -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Guardar Acopio" onAction="#handleGuardarAcopio" prefWidth="150"
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;">
+            <font>
+                <Font size="14"/>
+            </font>
+        </Button>
+        <Button text="Nuevo" onAction="#handleNuevo" prefWidth="120"
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+    </HBox>
+
+</VBox>

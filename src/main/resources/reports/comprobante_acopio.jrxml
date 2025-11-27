@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="comprobante_acopio" pageWidth="595" pageHeight="842"
+              columnWidth="535" leftMargin="30" rightMargin="30"
+              topMargin="20" bottomMargin="20">
+
+    <!-- PARÁMETROS (Datos de cabecera) -->
+    <parameter name="numeroAcopio" class="java.lang.String"/>
+    <parameter name="fechaAcopio" class="java.lang.String"/>
+    <parameter name="proveedorNombre" class="java.lang.String"/>
+    <parameter name="proveedorDocumento" class="java.lang.String"/>
+    <parameter name="proveedorDireccion" class="java.lang.String"/>
+    <parameter name="usuarioNombre" class="java.lang.String"/>
+    <parameter name="totalPagar" class="java.math.BigDecimal"/>
+    <parameter name="observaciones" class="java.lang.String"/>
+
+    <!-- CAMPOS (Datos del detalle) -->
+    <field name="numeroItem" class="java.lang.Integer"/>
+    <field name="material.nombre" class="java.lang.String"/>
+    <field name="peso" class="java.math.BigDecimal"/>
+    <field name="ley" class="java.math.BigDecimal"/>
+    <field name="deduccion" class="java.math.BigDecimal"/>
+    <field name="precioOnzaBase" class="java.math.BigDecimal"/>
+    <field name="tipoCambioDolar" class="java.math.BigDecimal"/>
+    <field name="precioGramoSoles" class="java.math.BigDecimal"/>
+    <field name="totalAPagar" class="java.math.BigDecimal"/>
+
+    <!-- TÍTULO DEL REPORTE -->
+    <title>
+        <band height="150">
+            <!-- Fondo azul del título -->
+            <rectangle>
+                <reportElement x="0" y="0" width="535" height="80" backcolor="#2C3E50"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+
+            <!-- Título principal -->
+            <staticText>
+                <reportElement x="10" y="10" width="515" height="30" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[VOUCHER DE ACOPIO DE MINERALES]]></text>
+            </staticText>
+
+            <!-- Subtítulo -->
+            <staticText>
+                <reportElement x="10" y="40" width="515" height="15" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center">
+                    <font size="11"/>
+                </textElement>
+                <text><![CDATA[Comprobante de Recepción de Material]]></text>
+            </staticText>
+
+            <!-- Número de acopio -->
+            <staticText>
+                <reportElement x="10" y="60" width="100" height="15" forecolor="#FFFFFF"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[Nro. Acopio:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="110" y="60" width="200" height="15" forecolor="#FFFFFF"/>
+                <textElement><font size="10" isBold="true"/></textElement>
+                <textFieldExpression><![CDATA[$P{numeroAcopio}]]></textFieldExpression>
+            </textField>
+
+            <!-- Fecha -->
+            <staticText>
+                <reportElement x="350" y="60" width="60" height="15" forecolor="#FFFFFF"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[Fecha:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="410" y="60" width="115" height="15" forecolor="#FFFFFF"/>
+                <textElement><font size="10"/></textElement>
+                <textFieldExpression><![CDATA[$P{fechaAcopio}]]></textFieldExpression>
+            </textField>
+
+            <!-- Línea separadora -->
+            <line>
+                <reportElement x="0" y="85" width="535" height="1"/>
+                <graphicElement><pen lineWidth="2"/></graphicElement>
+            </line>
+
+            <!-- DATOS DEL PROVEEDOR -->
+            <staticText>
+                <reportElement x="0" y="95" width="100" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[PROVEEDOR:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="100" y="95" width="435" height="15"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$P{proveedorNombre}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="110" width="100" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[DOCUMENTO:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="100" y="110" width="200" height="15"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$P{proveedorDocumento}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement x="0" y="125" width="100" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[DIRECCIÓN:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="100" y="125" width="435" height="15"/>
+                <textElement><font size="9"/></textElement>
+                <textFieldExpression><![CDATA[$P{proveedorDireccion}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <!-- CABECERA DE COLUMNAS -->
+    <columnHeader>
+        <band height="30">
+            <rectangle>
+                <reportElement x="0" y="5" width="535" height="20" backcolor="#34495E"/>
+                <graphicElement><pen lineWidth="0"/></graphicElement>
+            </rectangle>
+
+            <staticText>
+                <reportElement x="5" y="7" width="20" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[#]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="25" y="7" width="55" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Material]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="80" y="7" width="50" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Peso (g)]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="130" y="7" width="45" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Ley (%)]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="175" y="7" width="50" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Deduc.]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="225" y="7" width="60" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[P.Onza($)]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="285" y="7" width="45" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[T.C.]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="330" y="7" width="75" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[P/g (S/.)]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="405" y="7" width="125" height="16" forecolor="#FFFFFF"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Total (S/.)]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <!-- DETALLE (Filas de datos) -->
+    <detail>
+        <band height="18">
+            <textField>
+                <reportElement x="5" y="2" width="20" height="14"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{numeroItem}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="25" y="2" width="55" height="14"/>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{material.nombre}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#0.0000">
+                <reportElement x="80" y="2" width="50" height="14"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{peso}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#0.00">
+                <reportElement x="130" y="2" width="45" height="14"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{ley}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#,##0.0000">
+                <reportElement x="175" y="2" width="50" height="14"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{deduccion}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#,##0.00">
+                <reportElement x="225" y="2" width="60" height="14"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{precioOnzaBase}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#,##0.0000">
+                <reportElement x="285" y="2" width="45" height="14"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{tipoCambioDolar}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#0.000000">
+                <reportElement x="330" y="2" width="75" height="14"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="7"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{precioGramoSoles}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#,##0.00">
+                <reportElement x="405" y="2" width="125" height="14"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="7" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{totalAPagar}]]></textFieldExpression>
+            </textField>
+
+            <line>
+                <reportElement x="0" y="16" width="535" height="1"/>
+                <graphicElement><pen lineStyle="Dotted"/></graphicElement>
+            </line>
+        </band>
+    </detail>
+
+    <!-- PIE DE PÁGINA (Total y Firmas) -->
+    <summary>
+        <band height="160">
+            <!-- Recuadro del total -->
+            <rectangle>
+                <reportElement x="330" y="10" width="200" height="35" backcolor="#E8F5E9"/>
+                <graphicElement><pen lineWidth="2" lineColor="#27AE60"/></graphicElement>
+            </rectangle>
+
+            <staticText>
+                <reportElement x="340" y="18" width="120" height="20"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TOTAL A PAGAR:]]></text>
+            </staticText>
+
+            <textField pattern="'S/. '#0.00">
+                <reportElement x="460" y="18" width="65" height="20"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{totalPagar}]]></textFieldExpression>
+            </textField>
+
+            <!-- Observaciones -->
+            <staticText>
+                <reportElement x="0" y="60" width="100" height="15"/>
+                <textElement><font size="9" isBold="true"/></textElement>
+                <text><![CDATA[Observaciones:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="75" width="535" height="35"/>
+                <textElement><font size="8"/></textElement>
+                <textFieldExpression><![CDATA[$P{observaciones}]]></textFieldExpression>
+            </textField>
+
+            <!-- Líneas de firma -->
+            <line>
+                <reportElement x="50" y="135" width="150" height="1"/>
+            </line>
+            <staticText>
+                <reportElement x="50" y="138" width="150" height="15"/>
+                <textElement textAlignment="Center">
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[Firma del Proveedor]]></text>
+            </staticText>
+
+            <line>
+                <reportElement x="335" y="135" width="150" height="1"/>
+            </line>
+            <staticText>
+                <reportElement x="335" y="138" width="150" height="15"/>
+                <textElement textAlignment="Center">
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[Firma del Responsable]]></text>
+            </staticText>
+        </band>
+    </summary>
+
+</jasperReport>
