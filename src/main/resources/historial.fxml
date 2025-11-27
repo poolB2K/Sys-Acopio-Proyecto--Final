@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pe.com.acopio.controller.HistorialController"
+      spacing="15" style="-fx-background-color: white;">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Título -->
+    <Label text="HISTORIAL DE MOVIMIENTOS" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+        <font>
+            <Font size="20"/>
+        </font>
+    </Label>
+
+    <Separator/>
+
+    <!-- FILTROS -->
+    <TitledPane text="Filtros de Búsqueda" collapsible="false">
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" prefWidth="120"/>
+                    <ColumnConstraints minWidth="200" prefWidth="200"/>
+                    <ColumnConstraints minWidth="120" prefWidth="120"/>
+                    <ColumnConstraints minWidth="200" prefWidth="200"/>
+                </columnConstraints>
+
+                <!-- Fila 1 -->
+                <Label text="Fecha Inicio:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <DatePicker fx:id="dpFechaInicio" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Fecha Fin:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <DatePicker fx:id="dpFechaFin" prefWidth="200"
+                            GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <!-- Fila 2 -->
+                <Label text="Módulo:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="cmbModulo" prefWidth="200"
+                          GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Buscar:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtBuscar" promptText="Buscar en descripción..."
+                           GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+            </GridPane>
+
+            <!-- Botones de filtro -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Buscar" onAction="#handleBuscar" prefWidth="120"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white;">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+                <Button text="Ver Hoy" onAction="#handleVerHoy" prefWidth="120"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white;">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+                <Button text="Ver Recientes" onAction="#handleVerRecientes" prefWidth="120"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white;">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+                <Button text="Limpiar" onAction="#handleLimpiar" prefWidth="120"
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white;">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </TitledPane>
+
+    <!-- TABLA DE HISTORIAL -->
+    <SplitPane dividerPositions="0.65" VBox.vgrow="ALWAYS">
+        <!-- Tabla -->
+        <VBox spacing="5">
+            <Label text="Movimientos Registrados:" style="-fx-font-weight: bold;"/>
+            <TableView fx:id="tblHistorial" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colFechaHora" text="Fecha y Hora" prefWidth="150"/>
+                    <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="150"/>
+                    <TableColumn fx:id="colModulo" text="Módulo" prefWidth="100"/>
+                    <TableColumn fx:id="colAccion" text="Acción" prefWidth="150"/>
+                    <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="300"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Panel de detalles -->
+        <VBox spacing="5">
+            <Label text="Detalles del Movimiento:" style="-fx-font-weight: bold;"/>
+            <TextArea fx:id="txtDetalles" editable="false" wrapText="true"
+                      VBox.vgrow="ALWAYS"
+                      style="-fx-font-family: 'Courier New'; -fx-font-size: 12;"/>
+        </VBox>
+    </SplitPane>
+
+</VBox>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="pe.com.acopio.controller.LoginController"
+      alignment="CENTER" spacing="20" style="-fx-background-color: #f0f0f0;">
+
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <!-- Título -->
+    <Label text="SysAcopio" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;">
+        <font>
+            <Font size="28"/>
+        </font>
+    </Label>
+
+    <Label text="Sistema de Acopio de Minerales" style="-fx-text-fill: #7f8c8d;">
+        <font>
+            <Font size="14"/>
+        </font>
+    </Label>
+
+    <Separator prefWidth="200"/>
+
+    <!-- Formulario -->
+    <GridPane hgap="10" vgap="15" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints minWidth="100" prefWidth="100"/>
+            <ColumnConstraints minWidth="200" prefWidth="200"/>
+        </columnConstraints>
+
+        <!-- Usuario -->
+        <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <font>
+                <Font size="14"/>
+            </font>
+        </Label>
+        <TextField fx:id="txtUsername" promptText="Ingrese su usuario"
+                   GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <font>
+                <Font size="14"/>
+            </font>
+        </TextField>
+
+        <!-- Contraseña -->
+        <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <font>
+                <Font size="14"/>
+            </font>
+        </Label>
+        <PasswordField fx:id="txtPassword" promptText="Ingrese su contraseña"
+                       GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <font>
+                <Font size="14"/>
+            </font>
+        </PasswordField>
+    </GridPane>
+
+    <!-- Botones -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Ingresar" onAction="#handleLogin" prefWidth="120"
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;">
+            <font>
+                <Font size="14"/>
+            </font>
+        </Button>
+        <Button text="Cancelar" onAction="#handleCancel" prefWidth="120"
+                style="-fx-background-color: #95a5a6; -fx-text-fill: white;">
+            <font>
+                <Font size="14"/>
+            </font>
+        </Button>
+    </HBox>
+
+</VBox>
